@@ -1,0 +1,79 @@
+<section class="mainbar" data-ng-controller="RecordCtrl">
+    <section class="matter">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="form-search">
+                    <div class="col-lg-4">
+                        <input class="form-control search-query"
+                               data-ng-model="vm.attendeeSearch"
+                               data-ng-keyup="vm.search($event)"
+                               placeholder="Find attendee..." />
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn btn-info" ng-click="vm.refresh()">
+                            <i class="fa fa-refresh"></i> Search
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="widget-content text-center text-info">
+                    <table class="table table-condensed table-striped">
+                        <tr>
+                            <!--<th ng-click="type = 'include'; reverse = !reverse">Status</th>-->
+                            <th ng-click="type = 'PolicyNumber'; reverse = !reverse">PolicyNumber</th>
+                            <th ng-click="type = 'FirstName'; reverse = !reverse">FirstName</th>
+                            <th ng-click="type = 'LastName'; reverse = !reverse">LastName</th>
+                            <th ng-click="type = 'FullName'; reverse = !reverse">FullName</th>
+                            <th ng-click="type = 'VIN'; reverse = !reverse">VIN</th>
+                            <th ng-click="type = 'DriverLinceseState'; reverse = !reverse">DriverLinceseState</th>
+                            <th ng-click="type = 'DriverLicenseNumber'; reverse = !reverse">DriverLicenseNumber</th>
+                            <th ng-click="type = 'State'; reverse = !reverse">State</th>
+                            <th>Action</th>
+                        </tr>
+                        <tr ng-repeat="record in records | orderBy:type:reverse">
+                            <!--<td><input type="checkbox" ng-model="record.include"></td>-->
+                            <td>
+                                <label> {{record.policyNumber}} </label>
+                            </td>
+                            <td>
+                                <label ng-hide='isshow == $index'> {{record.firstName}} </label>
+                                <input type="text" value="{{record.firstName}}" ng-show='isshow == $index' />
+                            </td>
+                            <td>
+                                <label> {{record.lastName}} </label>
+                            </td>
+                            <td>
+                                <label> {{record.fullName}} </label>
+                            </td>
+                            <td>
+                                <label> {{record.vin}} </label>
+                            </td>
+                            <td>
+                                <label> {{record.driverLicenseState}} </label>
+                            </td>
+                            <td>
+                                <label> {{record.driverLicenseNumber}} </label>
+                            </td>
+                            <td>
+                                <label> {{record.state}} </label>
+                            </td>
+                            <td>
+                                <button ng-click="Edit($index)" ng-hide='isshow == $index'>Edit</button>
+                                <button ng-click="Save($index)" hidden='isshow != $index'>Save</button>
+                                <button ng-click="Reset($index)" ng-hide='isshow != $index'>Cancel</button>
+                                <button ng-click="Delete($index)" ng-hide='isshow != $index'>Delete</button>
+                            </td>
+                        </tr>
+                        <!--<tr>
+                            <td colspan="2">Total</td>
+                            <td>{{Totals().price | currency}}</td>
+                            <td>{{Totals().tax | currency}}</td>
+                        </tr>-->
+                    </table>
+                    <button ng-show="history.length > 0" ng-click="Undo()">Undo Delete</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
